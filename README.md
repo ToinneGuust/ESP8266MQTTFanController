@@ -1,4 +1,4 @@
-#ESP8266 fan controller over MQTT
+# ESP8266 fan controller over MQTT
 
 A DIY fan controller that measures incomming/ambient and outgoing temperatures.
 Reporting and configuration is done over MQTT.
