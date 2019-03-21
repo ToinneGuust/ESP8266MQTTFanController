@@ -1,8 +1,16 @@
-void reconnect() {
+void reconnectToMQTT() {
   // Loop until we're reconnected
+  if (configuration.debug) Serial.println("Starting reconnect");
   while (!client.connected()) {
-    if (configuration.debug) Serial.print("Attempting MQTT connection...");
+    if (configuration.debug) Serial.println("Attempting MQTT connection...");
     // Attempt to connect
+    if (configuration.debug) Serial.println(mqtt_server);
+    if (configuration.debug) Serial.println(mqtt_server_port);
+    if (configuration.debug) Serial.println(mqtt_clientName);
+    if (configuration.debug) Serial.println(mqtt_username);
+    if (configuration.debug) Serial.println(mqtt_password);
+    if (configuration.debug) Serial.println(logTopic);
+   
     if (client.connect(mqtt_clientName, mqtt_username, mqtt_password, logTopic, 1, true, "Living CV disconnected from MQTT server")) {
       if (configuration.debug) Serial.println("connected");
       sendMQTTMessage(logTopic, "Living CV fan connected to MQTT server", false);
@@ -39,7 +47,8 @@ void sendMQTTMessage(char* topic, char* message, bool persistent) {
     if (configuration.debug) Serial.println(message);
     client.publish(topic, message, persistent);
   } else {
-    reconnect();
+    if (configuration.debug) Serial.println("Reconnecting to MQTT");
+    reconnectToMQTT();
   }
 }
 

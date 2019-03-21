@@ -7,6 +7,7 @@ void setup_wifi() {
   Serial.println(ssid);
   WiFi.mode(WIFI_STA);
   WiFi.softAPdisconnect(true);
+  WiFi.hostname("CVFANLIVING");
   WiFi.begin(ssid, pass);
 
   while (WiFi.status() != WL_CONNECTED) {

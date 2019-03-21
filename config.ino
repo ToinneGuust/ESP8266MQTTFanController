@@ -41,7 +41,6 @@ bool loadConfig() {
   configuration.debug  = json["debug"].as<bool>();
   configuration.pwmRange  = json["pwmRange"];
   configuration.pwmFrequency  = json["pwmFrequency"];
-
   if (configuration.debug) Serial.println("Configuration file loaded");
 
   printJsonConfig(json);
@@ -86,6 +85,7 @@ void printJsonConfig(JsonObject& json)
   char mqttMessage[200];
 
   json.printTo(mqttMessage);
+  if (configuration.debug) Serial.println(mqttMessage);
   sendMQTTMessage(configTopic, mqttMessage, false);
 }
 
